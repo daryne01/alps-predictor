@@ -30,10 +30,24 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--cream);
+      background: #f4f4f4;
       color: var(--slate);
       min-height: 100vh;
       line-height: 1.6;
+    }
+    .page-title {
+      text-align: center;
+      padding: 2.5rem 1rem 0.5rem;
+    }
+    .page-title h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1b4332;
+      margin-bottom: 0.25rem;
+    }
+    .page-title p {
+      font-size: 0.85rem;
+      color: #64748b;
     }
 
     /* ── Header ── */
@@ -102,43 +116,7 @@
       padding: 40px 24px 80px;
     }
 
-    /* ── API key banner ── */
-    .api-banner {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin-bottom: 32px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .api-banner-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--slate-pale);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 18px;
-    }
-    .api-banner label { font-weight: 600; font-size: 14px; color: var(--slate); display: block; margin-bottom: 6px; }
-    .api-banner input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 9px 12px;
-      font-size: 14px;
-      font-family: monospace;
-      color: var(--slate);
-      background: var(--slate-pale);
-      outline: none;
-      transition: border-color .2s;
-    }
-    .api-banner input:focus { border-color: var(--green-bright); background: var(--white); }
-    .api-banner small { display: block; margin-top: 6px; color: var(--slate-light); font-size: 12px; }
+
 
     /* ── Step indicator ── */
     .steps {
@@ -558,34 +536,12 @@
 </head>
 <body>
 
-<!-- ── Header ── -->
-<header>
-  <div class="logo-mark">A</div>
-  <div class="logo-text">
-    <strong>ALPS Ecoscience</strong>
-    <span>Digester Efficiency Predictor</span>
-  </div>
-</header>
-
-<!-- ── Hero ── -->
-<div class="hero">
-  <h1>How efficient is your digester?</h1>
-  <p>Enter your operating data and receive an AI-generated efficiency score with a detailed breakdown of what's underperforming.</p>
-  <div class="hero-badge">AI-Powered Analysis · Results in under 30 seconds</div>
+<div class="page-title">
+  <h1>Digester Efficiency Predictor Model</h1>
 </div>
 
 <!-- ── Main ── -->
 <div class="container">
-
-  <!-- API Key -->
-  <div class="api-banner" id="apiBanner">
-    <div class="api-banner-icon">🔑</div>
-    <div style="flex:1">
-      <label for="apiKeyInput">Anthropic API Key</label>
-      <input type="password" id="apiKeyInput" placeholder="sk-ant-…" autocomplete="off" />
-      <small>Used only in your browser to call the Claude API. Never stored or transmitted elsewhere.</small>
-    </div>
-  </div>
 
   <!-- Step indicator -->
   <div class="steps" id="stepIndicator">
@@ -595,19 +551,14 @@
     </div>
     <div class="step-item" id="si2">
       <div class="step-num">2</div>
-      <span class="step-label">Process &amp; Performance</span>
-    </div>
-    <div class="step-item" id="si3">
-      <div class="step-num">3</div>
-      <span class="step-label">Review &amp; Analyse</span>
+      <span class="step-label">Digester Conditions</span>
     </div>
   </div>
 
   <!-- ── Step 1 ── -->
   <div id="step1">
     <div class="card">
-      <div class="card-title"><span class="icon">🌾</span> Feedstock &amp; Loading</div>
-      <p class="card-sub">Tell us what you're digesting and how much you're putting in.</p>
+      <div class="card-title">Feedstock &amp; Loading</div>
       <div class="form-grid">
 
         <div class="field full">
@@ -626,67 +577,46 @@
         </div>
 
         <div class="field">
-          <label for="dailyInput">Daily input <span class="unit">(t/day)</span>
-            <span class="hint">Total mass throughput</span>
-          </label>
+          <label for="dailyInput">Daily input <span class="unit">(t/day)</span></label>
           <input type="number" id="dailyInput" placeholder="e.g. 60" min="0" step="0.1" />
         </div>
 
         <div class="field">
-          <label for="ts">Total solids — TS <span class="unit">(%)</span>
-            <span class="hint">Slurry vs dry-AD regime indicator</span>
-          </label>
+          <label for="ts">Total solids — TS <span class="unit">(%)</span></label>
           <input type="number" id="ts" placeholder="e.g. 22" min="0" max="100" step="0.1" />
         </div>
 
         <div class="field">
-          <label for="vsTs">Volatile solids — VS/TS <span class="unit">(% of TS)</span>
-            <span class="hint">Biodegradable organic fraction</span>
-          </label>
+          <label for="vsTs">Volatile solids — VS/TS <span class="unit">(% of TS)</span></label>
           <input type="number" id="vsTs" placeholder="e.g. 85" min="0" max="100" step="0.1" />
         </div>
 
         <div class="field">
-          <label for="olr">Organic loading rate — OLR <span class="unit">(kg VS/m³/day)</span>
-            <span class="hint">Primary overloading risk indicator</span>
-          </label>
+          <label for="olr">Organic loading rate — OLR <span class="unit">(kg VS/m³/day)</span></label>
           <input type="number" id="olr" placeholder="e.g. 4.8" min="0" step="0.1" />
-          <div class="thresholds">
-            <span class="chip">Optimal: 1–3</span>
-            <span class="chip">Elevated: 3–4</span>
-            <span class="chip">High risk: &gt;4</span>
-          </div>
         </div>
 
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn-primary" onclick="goTo(2)">Next: Process Data →</button>
+      <button class="btn-primary" onclick="goTo(2)">Next →</button>
     </div>
   </div>
 
   <!-- ── Step 2 ── -->
   <div id="step2" style="display:none">
     <div class="card">
-      <div class="card-title"><span class="icon">⚙️</span> Process &amp; Performance Data</div>
-      <p class="card-sub">Operating conditions and gas production figures. Leave fields blank if data isn't available — the model works with partial data.</p>
+      <div class="card-title">Digester Conditions</div>
       <div class="form-grid">
 
         <div class="field">
           <label for="temp">Temperature <span class="unit">(°C)</span></label>
           <input type="number" id="temp" placeholder="e.g. 38" min="0" max="80" step="0.1" />
-          <div class="thresholds">
-            <span class="chip">Meso: 35–40°C</span>
-            <span class="chip">Thermo: 50–55°C</span>
-          </div>
         </div>
 
         <div class="field">
           <label for="hrt">Hydraulic retention time — HRT <span class="unit">(days)</span></label>
           <input type="number" id="hrt" placeholder="e.g. 18" min="0" step="0.1" />
-          <div class="thresholds">
-            <span class="chip">Risk: &lt;15 days</span>
-          </div>
         </div>
 
         <div class="field">
@@ -695,102 +625,37 @@
         </div>
 
         <div class="field">
-          <label for="ph">pH <span class="unit">—</span></label>
+          <label for="ph">pH</label>
           <input type="number" id="ph" placeholder="e.g. 7.6" min="0" max="14" step="0.01" />
-          <div class="thresholds">
-            <span class="chip">Optimal: 6.8–7.4</span>
-          </div>
         </div>
 
         <div class="field">
-          <label for="biogasYield">Biogas yield <span class="unit">(m³/tonne)</span>
-            <span class="hint">Benchmarked vs feedstock norms</span>
-          </label>
+          <label for="biogasYield">Biogas yield <span class="unit">(m³/tonne)</span></label>
           <input type="number" id="biogasYield" placeholder="e.g. 72" min="0" step="0.1" />
         </div>
 
         <div class="field">
           <label for="methane">Methane content <span class="unit">(% CH₄)</span></label>
           <input type="number" id="methane" placeholder="e.g. 52" min="0" max="100" step="0.1" />
-          <div class="thresholds">
-            <span class="chip">Typical: 50–65%</span>
-          </div>
         </div>
 
         <div class="field">
           <label for="ammonia">Ammonia-N <span class="unit">(mg/L)</span></label>
           <input type="number" id="ammonia" placeholder="e.g. 3400" min="0" step="1" />
-          <div class="thresholds">
-            <span class="chip">Warning: &gt;2500</span>
-            <span class="chip">Inhibitory: &gt;3000</span>
-          </div>
         </div>
 
         <div class="field">
-          <label for="vfa">VFA : Alkalinity ratio <span class="unit">—</span></label>
+          <label for="vfa">VFA : Alkalinity ratio</label>
           <input type="number" id="vfa" placeholder="e.g. 0.48" min="0" step="0.01" />
-          <div class="thresholds">
-            <span class="chip">Stable: &lt;0.3</span>
-            <span class="chip">Risk: &gt;0.4</span>
-            <span class="chip">Crisis: &gt;0.8</span>
-          </div>
         </div>
 
       </div>
     </div>
+    <div class="error-banner" id="errorBanner"></div>
     <div class="btn-row">
       <button class="btn-secondary" onclick="goTo(1)">← Back</button>
-      <button class="btn-primary" onclick="goTo(3)">Review Data →</button>
+      <button class="btn-analyse" id="analyseBtn" onclick="runAnalysis()">Run Analysis</button>
     </div>
-  </div>
-
-  <!-- ── Step 3: Review ── -->
-  <div id="step3" style="display:none">
-    <div class="card">
-      <div class="card-title"><span class="icon">📋</span> Review Your Data</div>
-      <p class="card-sub">Check everything looks correct before we run the analysis. Blank fields will be noted as "not provided".</p>
-
-      <div class="review-section">
-        <h3>Feedstock &amp; Loading</h3>
-        <table class="review-table">
-          <tr><td>Feedstock type</td><td id="rv-feedstock">—</td></tr>
-          <tr><td>Daily input</td><td id="rv-dailyInput">—</td></tr>
-          <tr><td>Total solids (TS)</td><td id="rv-ts">—</td></tr>
-          <tr><td>Volatile solids (VS/TS)</td><td id="rv-vsTs">—</td></tr>
-          <tr><td>Organic loading rate (OLR)</td><td id="rv-olr">—</td></tr>
-        </table>
-      </div>
-
-      <div class="review-section">
-        <h3>Process &amp; Performance</h3>
-        <table class="review-table">
-          <tr><td>Temperature</td><td id="rv-temp">—</td></tr>
-          <tr><td>HRT</td><td id="rv-hrt">—</td></tr>
-          <tr><td>Digester volume</td><td id="rv-volume">—</td></tr>
-          <tr><td>pH</td><td id="rv-ph">—</td></tr>
-          <tr><td>Biogas yield</td><td id="rv-biogasYield">—</td></tr>
-          <tr><td>Methane content</td><td id="rv-methane">—</td></tr>
-          <tr><td>Ammonia-N</td><td id="rv-ammonia">—</td></tr>
-          <tr><td>VFA : Alkalinity ratio</td><td id="rv-vfa">—</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="error-banner" id="errorBanner"></div>
-
-    <div class="btn-row">
-      <button class="btn-secondary" onclick="goTo(2)">← Edit Data</button>
-      <button class="btn-analyse" id="analyseBtn" onclick="runAnalysis()">
-        ⚡ Run Efficiency Analysis
-      </button>
-    </div>
-  </div>
-
-  <!-- ── Loading ── -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <strong>Analysing your digester data…</strong>
-    <p>Analysing your parameters against established AD engineering thresholds.</p>
   </div>
 
   <!-- ── Results ── -->
@@ -862,14 +727,13 @@
 <script>
 // ── Navigation ──────────────────────────────────────────────────────────────
 function goTo(step) {
-  [1, 2, 3].forEach(n => {
+  [1, 2].forEach(n => {
     document.getElementById('step' + n).style.display = n === step ? 'block' : 'none';
     const si = document.getElementById('si' + n);
-    si.classList.remove('active', 'done');
-    if (n < step) si.classList.add('done');
-    if (n === step) si.classList.add('active');
+    if (si) { si.classList.remove('active', 'done'); }
+    if (si && n < step) si.classList.add('done');
+    if (si && n === step) si.classList.add('active');
   });
-  if (step === 3) populateReview();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -986,15 +850,9 @@ Return ONLY valid JSON in this exact structure (no markdown, no explanation):
 
 // ── Run analysis ─────────────────────────────────────────────────────────────
 async function runAnalysis() {
-  const apiKey = document.getElementById('apiKeyInput').value.trim();
   const errBanner = document.getElementById('errorBanner');
   errBanner.classList.remove('visible');
 
-  if (!apiKey) {
-    errBanner.textContent = 'Please enter your Anthropic API key at the top of the page.';
-    errBanner.classList.add('visible');
-    return;
-  }
   if (!val('feedstock') && !val('dailyInput') && !val('biogasYield')) {
     errBanner.textContent = 'Please fill in at least a few fields before running the analysis.';
     errBanner.classList.add('visible');
@@ -1002,8 +860,8 @@ async function runAnalysis() {
   }
 
   // Show loading
-  document.getElementById('step3').style.display = 'none';
-  document.getElementById('loadingOverlay').classList.add('visible');
+  document.getElementById('step2').style.display = 'none';
+  
   document.getElementById('results').classList.remove('visible');
 
   const dataString = buildDataString();
@@ -1013,9 +871,6 @@ async function runAnalysis() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
@@ -1039,22 +894,16 @@ async function runAnalysis() {
     renderResults(result);
 
   } catch (e) {
-    document.getElementById('loadingOverlay').classList.remove('visible');
-    document.getElementById('step3').style.display = 'block';
+    
+    document.getElementById('step2').style.display = 'block';
     errBanner.textContent = 'Analysis failed: ' + e.message;
     errBanner.classList.add('visible');
-    [1,2,3].forEach(n => {
-      const si = document.getElementById('si'+n);
-      si.classList.remove('active','done');
-      if (n < 3) si.classList.add('done');
-      if (n === 3) si.classList.add('active');
-    });
   }
 }
 
 // ── Render results ────────────────────────────────────────────────────────────
 function renderResults(r) {
-  document.getElementById('loadingOverlay').classList.remove('visible');
+  
 
   // Gauge
   document.getElementById('gaugeScore').textContent = r.score;
